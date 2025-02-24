@@ -1,3 +1,5 @@
+import { Schema } from 'mongoose';
+
 export class File {
   id: string;
   name: string;
@@ -6,9 +8,9 @@ export class File {
   size: number;
   createdAt: Date;
   updatedAt: Date;
-  contributorId: string;
+  contributorId: Schema.Types.ObjectId;
   downloadCounter: number;
   downloadUrl: string;
   previewUrl: string;
-  icon: string;
+  iconUrl: string;
 }
