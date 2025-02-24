@@ -8,9 +8,9 @@ export class TimbreRepositoryAdapter implements TimbreRepositoryPort {
     @InjectModel(Timbre.name) private readonly timbreModel: Model<Timbre>,
   ) {}
 
-  create(timbre: Timbre): Promise<Timbre> {
+  async create(timbre: Timbre): Promise<Timbre> {
     const createdTimbre = new this.timbreModel(timbre);
-    return createdTimbre.save();
+    return (await createdTimbre.save()).toObject({ getters: true });
   }
 
   async findById(id: string): Promise<Timbre | null> {
@@ -29,7 +29,13 @@ export class TimbreRepositoryAdapter implements TimbreRepositoryPort {
   }
 
   async updateById(id: string, timbre: Timbre): Promise<Timbre | null> {
-    return this.timbreModel.findByIdAndUpdate(id, timbre, { new: true }).exec();
+    return (
+      (
+        await this.timbreModel
+          .findByIdAndUpdate(id, timbre, { new: true })
+          .exec()
+      )?.toObject({ getters: true }) || null
+    );
   }
 
   async delete(id: string): Promise<void> {
