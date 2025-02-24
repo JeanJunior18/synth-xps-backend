@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
-
+import { compareSync } from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(
@@ -11,8 +11,8 @@ export class AuthService {
 
   async signIn(username: string, password: string) {
     const user = await this.userService.findByUsername(username);
-    // TODO: Create a hash of the password and compare it with the hash stored in the database
-    if (user.password !== password) {
+
+    if (!compareSync(password, user.password)) {
       throw new UnauthorizedException();
     }
 
