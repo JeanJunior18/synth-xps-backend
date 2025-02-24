@@ -12,5 +12,5 @@ export class File {
   downloadCounter: number;
   downloadUrl: string;
   previewUrl: string;
-  iconUrl: string;
+  iconUrl?: string;
 }
