@@ -4,20 +4,19 @@ import { Timbre } from 'src/timbre/entities/timbre.entity';
 
 export type TimbreDocument = HydratedDocument<Timbre>;
 
-export const TimbreSchema = new Schema<Timbre>(
+export const TimbreSchema = new Schema<TimbreDocument>(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
     category: { type: String, required: true },
-    contributorId: { type: Schema.Types.ObjectId, required: true },
-    createdAt: Date,
-    updatedAt: Date,
+    contributorId: Schema.Types.ObjectId,
     downloadCounter: { type: Number, default: 0 },
     downloadUrl: { type: String, required: true },
-    extension: { type: String, required: true },
+    extension: String,
     iconUrl: String,
     previewUrl: String,
-    size: { type: Number, required: true },
+    size: Number,
+    __v: { type: Number, select: false },
   },
   {
     id: true,

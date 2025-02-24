@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TimbreService } from './timbre.service';
-import { CreateTimbreDto } from './dto/create-timbre.dto';
-import { UpdateTimbreDto } from './dto/update-timbre.dto';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { CreateTimbreDto } from 'src/timbre/dto/create-timbre.dto';
+import { TimbreService } from 'src/timbre/timbre.service';
 
 @Controller('timbre')
 export class TimbreController {
@@ -19,16 +18,6 @@ export class TimbreController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.timbreService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTimbreDto: UpdateTimbreDto) {
-    return this.timbreService.update(+id, updateTimbreDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.timbreService.remove(+id);
+    return this.timbreService.findOne(id);
   }
 }

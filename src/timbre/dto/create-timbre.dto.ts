@@ -1,8 +1,10 @@
-import { File } from 'node:buffer';
+import { TimbreCategory } from 'src/timbre/entities/enum/timbre-category.enum';
 
 export class CreateTimbreDto {
   name: string;
   description: string;
-  category: string;
-  file: File | Buffer;
+  category: TimbreCategory;
+  downloadUrl: string;
+  previewUrl: string;
+  iconUrl: string;
 }

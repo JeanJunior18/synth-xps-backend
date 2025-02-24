@@ -1,9 +1,12 @@
+import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { Timbre } from 'src/timbre/entities/timbre.entity';
 import { TimbreRepositoryPort } from 'src/timbre/repository/timbre.repository.port';
 
 export class TimbreRepositoryAdapter implements TimbreRepositoryPort {
-  constructor(private readonly timbreModel: Model<Timbre>) {}
+  constructor(
+    @InjectModel(Timbre.name) private readonly timbreModel: Model<Timbre>,
+  ) {}
 
   create(timbre: Timbre): Promise<Timbre> {
     const createdTimbre = new this.timbreModel(timbre);
@@ -19,8 +22,10 @@ export class TimbreRepositoryAdapter implements TimbreRepositoryPort {
     return timbre;
   }
 
-  async findAll(filter?: Partial<Timbre>): Promise<Timbre[]> {
-    return this.timbreModel.find(filter || {}).exec();
+  async findAll(filter: Partial<Timbre> = {}): Promise<Timbre[]> {
+    return (await this.timbreModel.find(filter).exec()).map((timbre) =>
+      timbre.toObject({ getters: true }),
+    );
   }
 
   async updateById(id: string, timbre: Timbre): Promise<Timbre | null> {

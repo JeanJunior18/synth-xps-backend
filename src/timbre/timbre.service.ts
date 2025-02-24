@@ -1,26 +1,31 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { CreateTimbreDto } from './dto/create-timbre.dto';
 import { UpdateTimbreDto } from './dto/update-timbre.dto';
+import { TimbreRepositoryPort } from 'src/timbre/repository/timbre.repository.port';
+import { Timbre } from 'src/timbre/entities/timbre.entity';
 
 @Injectable()
 export class TimbreService {
-  create(createTimbreDto: CreateTimbreDto) {
-    return 'This action adds a new timbre';
+  constructor(private readonly repository: TimbreRepositoryPort) {}
+
+  create(createTimbreDto: CreateTimbreDto): Promise<Timbre> {
+    const timbre = Timbre.createFromDto(createTimbreDto);
+    return this.repository.create(timbre);
   }
 
-  findAll() {
-    return `This action returns all timbre`;
+  findAll(filter: Partial<Timbre> = {}) {
+    return this.repository.findAll(filter);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} timbre`;
+  findOne(id: string) {
+    return this.repository.findById(id);
   }
 
-  update(id: number, updateTimbreDto: UpdateTimbreDto) {
-    return `This action updates a #${id} timbre`;
+  update(id: string, updateTimbreDto: UpdateTimbreDto) {
+    throw new NotImplementedException(id, updateTimbreDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} timbre`;
+  remove(id: string) {
+    throw new NotImplementedException(id);
   }
 }
