@@ -1,0 +1,15 @@
+export enum TimbreCategory {
+  KEYS = 'keys',
+  SYNTHS = 'synths',
+  ORGAN = 'organ',
+  ACCORDION = 'accordion',
+  BRASS = 'brass',
+  STRINGS = 'strings',
+  DRUMS = 'drums',
+  PERFORMANCE = 'performance',
+  LOOPS = 'loops',
+  GUITARS = 'guitars',
+  BASS = 'bass',
+  VOCALS = 'vocals',
+  OTHER = 'other',
+}
