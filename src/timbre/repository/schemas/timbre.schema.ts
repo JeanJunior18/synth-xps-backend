@@ -1,5 +1,4 @@
-import { Schema } from 'mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Schema } from 'mongoose';
 import { Timbre } from 'src/timbre/entities/timbre.entity';
 
 export type TimbreDocument = HydratedDocument<Timbre>;

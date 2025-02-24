@@ -16,10 +16,11 @@ export class TimbreRepositoryAdapter implements TimbreRepositoryPort {
   async findById(id: string): Promise<Timbre | null> {
     if (!id || !isValidObjectId(id)) return null;
 
-    const timbre = await this.timbreModel.findById(id).exec();
-    if (!timbre) return null;
-
-    return timbre;
+    return (
+      (await this.timbreModel.findById(id).exec())?.toObject({
+        getters: true,
+      }) ?? null
+    );
   }
 
   async findAll(filter: Partial<Timbre> = {}): Promise<Timbre[]> {
@@ -34,7 +35,7 @@ export class TimbreRepositoryAdapter implements TimbreRepositoryPort {
         await this.timbreModel
           .findByIdAndUpdate(id, timbre, { new: true })
           .exec()
-      )?.toObject({ getters: true }) || null
+      )?.toObject({ getters: true }) ?? null
     );
   }
 
