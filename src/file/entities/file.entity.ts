@@ -7,7 +7,7 @@ export class File {
   createdAt: Date;
   updatedAt: Date;
   contributorId: string;
-  downloadCounter: number;
+  downloadCount: number;
   downloadUrl: string;
   previewUrl: string;
   iconUrl?: string;

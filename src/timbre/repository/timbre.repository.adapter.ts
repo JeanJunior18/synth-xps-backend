@@ -14,7 +14,7 @@ export class TimbreRepositoryAdapter implements TimbreRepositoryPort {
   }
 
   async findById(id: string): Promise<Timbre | null> {
-    if (!id || !isValidObjectId(id)) return null;
+    if (!isValidObjectId(id)) return null;
 
     return (
       (await this.timbreModel.findById(id).exec())?.toObject({
@@ -29,11 +29,16 @@ export class TimbreRepositoryAdapter implements TimbreRepositoryPort {
     );
   }
 
-  async updateById(id: string, timbre: Timbre): Promise<Timbre | null> {
+  async updateById(
+    id: string,
+    timbre: Partial<Timbre>,
+  ): Promise<Timbre | null> {
+    if (!isValidObjectId(id)) return null;
+
     return (
       (
         await this.timbreModel
-          .findByIdAndUpdate(id, timbre, { new: true })
+          .findByIdAndUpdate(id, { $set: timbre }, { new: true })
           .exec()
       )?.toObject({ getters: true }) ?? null
     );

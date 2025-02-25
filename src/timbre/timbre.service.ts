@@ -1,6 +1,5 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateTimbreDto } from './dto/create-timbre.dto';
-import { UpdateTimbreDto } from './dto/update-timbre.dto';
 import { TimbreRepositoryPort } from 'src/timbre/repository/timbre.repository.port';
 import { Timbre } from 'src/timbre/entities/timbre.entity';
 
@@ -22,11 +21,7 @@ export class TimbreService {
     return this.repository.findById(id);
   }
 
-  update(id: string, updateTimbreDto: UpdateTimbreDto) {
-    throw new NotImplementedException(id, updateTimbreDto);
-  }
-
-  remove(id: string) {
-    throw new NotImplementedException(id);
+  changeLikeCount(id: string, count: number) {
+    return this.repository.updateById(id, { likesCount: count });
   }
 }

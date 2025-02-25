@@ -17,5 +17,6 @@ import { TimbreService } from 'src/timbre/timbre.service';
     TimbreService,
     { provide: TimbreRepositoryPort, useClass: TimbreRepositoryAdapter },
   ],
+  exports: [TimbreService],
 })
 export class TimbreModule {}
