@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
+  Param,
   Post,
   Request,
   UseGuards,
@@ -18,10 +20,15 @@ export class TimbreLikeController {
 
   @Post()
   @HttpCode(204)
-  create(
+  addLike(
     @Body() createTimbreDto: CreateTimbreLikeDto,
     @Request() req: { user: ProfileDataDto },
   ) {
     return this.timbreLikeService.addLike(createTimbreDto, req.user.sub);
+  }
+
+  @Get(':timbreId')
+  getLikes(@Param('timbreId') timbreId: string) {
+    return this.timbreLikeService.findAllByTimbreId(timbreId);
   }
 }
