@@ -9,6 +9,7 @@ import {
 import { AuthGuard } from 'src/auth/auth.guard';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginDto } from 'src/auth/dto/login.dto';
+import { ProfileDataDto } from 'src/auth/dto/profile-data.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -25,8 +26,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return req.user as { username: string; sub: string };
+  getProfile(@Request() req: { user: ProfileDataDto }) {
+    return req.user;
   }
 }

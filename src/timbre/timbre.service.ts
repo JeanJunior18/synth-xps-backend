@@ -8,8 +8,9 @@ import { Timbre } from 'src/timbre/entities/timbre.entity';
 export class TimbreService {
   constructor(private readonly repository: TimbreRepositoryPort) {}
 
-  create(createTimbreDto: CreateTimbreDto): Promise<Timbre> {
+  create(createTimbreDto: CreateTimbreDto, userId: string): Promise<Timbre> {
     const timbre = Timbre.createFromDto(createTimbreDto);
+    timbre.contributorId = userId;
     return this.repository.create(timbre);
   }
 

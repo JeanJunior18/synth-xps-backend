@@ -8,6 +8,7 @@ export const TimbreSchema = new Schema<TimbreDocument>(
     name: { type: String, required: true },
     description: { type: String, required: true },
     category: { type: String, required: true },
+    type: { type: String, required: true },
     contributorId: Schema.Types.ObjectId,
     downloadCounter: { type: Number, default: 0 },
     downloadUrl: { type: String, required: true },
