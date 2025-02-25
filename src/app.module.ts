@@ -9,7 +9,7 @@ import { UserModule } from 'src/user/user.module';
   imports: [
     TimbreModule,
     FileModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/synth-xps'),
+    MongooseModule.forRoot(`${process.env.MONGO_URI}`),
     AuthModule,
     UserModule,
   ],
